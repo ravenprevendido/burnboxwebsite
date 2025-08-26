@@ -1,102 +1,17 @@
-// components/ServiceDetail.tsx
+<div className="flex justify-between text-xs text-gray-400 mt-4 px-2 md:px-4">
+  {/* Left Contact Info */}
+  <div className="space-y-2">
+    <p>+63 917 700 8364</p>
+    <p className="flex items-center gap-1">
+      <a href="https://www.facebook.com/burnboxprinting" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-pink-500">
+        burnboxprinting <FaFacebook />
+      </a>
+    </p>
+  </div>
 
-import React, { useState, useRef } from 'react';
-
-type Props = {
-  image: string;
-  title: string;
-  description: string;
-  features: string[];
-};
-
-const ServiceDetail: React.FC<Props> = ({ image, title, description, features }) => {
-  const [selectedImage, setSelectedImage] = useState(image);
-
-  const handleImageClick = (newImage: string) => {
-    setSelectedImage(newImage);
-  };
-
-  // Ref for the scroll container
-  const scrollRef = useRef<HTMLDivElement>(null);
-  let isDown = false;
-  let startX: number;
-  let scrollLeft: number;
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    if (!scrollRef.current) return;
-    isDown = true;
-    scrollRef.current.classList.add('cursor-grabbing');
-    startX = e.pageX - scrollRef.current.offsetLeft;
-    scrollLeft = scrollRef.current.scrollLeft;
-  };
-
-  const handleMouseLeave = () => {
-    isDown = false;
-    scrollRef.current?.classList.remove('cursor-grabbing');
-  };
-
-  const handleMouseUp = () => {
-    isDown = false;
-    scrollRef.current?.classList.remove('cursor-grabbing');
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!isDown || !scrollRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - startX) * 2; // scroll-fastness factor
-    scrollRef.current.scrollLeft = scrollLeft - walk;
-  };
-
-  return (
-    <div className="w-full max-w-5xl bg-gradient-to-tr from-neutral-500 via-neutral-300 to-neutral-300 p-8 rounded">
-      <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
-        {/* Left: Image */}
-        <div className="w-full md:w-1/2 flex justify-center">
-          <img
-            src={selectedImage}
-            alt={title}
-            className="max-w-full h-auto object-contain"
-          />
-        </div>
-
-        {/* Right: Content */}
-        <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
-          <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
-          <p className="text-gray-700 text-sm">{description}</p>
-
-          <p className="text-pink-600 font-medium text-sm">Key Features</p>
-          <ul className="text-left text-sm list-disc pl-5 text-gray-600">
-            {features.map((feature, index) => (
-              <li key={index}>{feature}</li>
-            ))}
-          </ul>
-          <button className="mt-4 px-6 py-2 bg-pink-500 text-white rounded-2xl hover:bg-transparent hover:text-black hover:border border-pink-500">
-            Inquire Now
-          </button>
-        </div>
-      </div>
-
-      {/* Image slider */}
-      <div
-        ref={scrollRef}
-        className="w-full overflow-x-auto scrollbar-hide mt-8 cursor-grab"
-        onMouseDown={handleMouseDown}
-        onMouseLeave={handleMouseLeave}
-        onMouseUp={handleMouseUp}
-        onMouseMove={handleMouseMove}
-      >
-        <div className="flex gap-4 w-max px-2">
-          <img src="/BOOK.png" onClick={() => handleImageClick("/BOOK.png")} className="w-40 h-auto object-contain rounded shadow cursor-pointer" />
-          <img src="/CUP.png" onClick={() => handleImageClick("/CUP.png")} className="w-40 h-auto object-contain rounded shadow cursor-pointer" />
-          <img src="/EXHIBIT_MOCKUP.png" onClick={() => handleImageClick("/EXHIBIT_MOCKUP.png")} className="w-40 h-auto object-contain rounded shadow cursor-pointer" />
-          <img src="/BOOK.png" onClick={() => handleImageClick("/BOOK.png")} className="w-40 h-auto object-contain rounded shadow cursor-pointer" />
-          <img src="/BOOK.png" onClick={() => handleImageClick("/BOOK.png")} className="w-40 h-auto object-contain rounded shadow cursor-pointer" />
-          <img src="/BOOK.png" onClick={() => handleImageClick("/BOOK.png")} className="w-40 h-auto object-contain rounded shadow cursor-pointer" />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-export default ServiceDetail;
+  {/* Right Contact Info */}
+  <div className="space-y-2 text-right">
+    <p>+63 977 247 3179</p>
+    <p>&nbsp;</p> {/* Optional: Keeps spacing aligned */}
+  </div>
+</div>

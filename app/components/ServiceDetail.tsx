@@ -1,6 +1,9 @@
 // components/ServiceDetail.tsx
 
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, use } from 'react';
+import emailjs from 'emailjs-com';
+import { FaArrowCircleRight, FaFacebook } from 'react-icons/fa';
+
 
 type Props = {
   image: string;
@@ -9,18 +12,66 @@ type Props = {
   features: string[];
 };
 
+type Contact = {
+    name: string
+    email: string;
+}
+
+
+
 const ServiceDetail: React.FC<Props> = ({ image, title, description, features }) => {
   const [selectedImage, setSelectedImage] = useState(image);
-
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('')
+  const [contactName, setContactName] = useState('');
+  const [contactPhone, setContactPhone] = useState('')
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedContact, setSelectedContact] = useState<Contact | null>(null)
   const handleImageClick = (newImage: string) => {
     setSelectedImage(newImage);
   };
+  const handleSubmitInquiry = async () => {
+    if(!selectedContact) return alert('Please select a contact person!');
 
-  // Ref for the scroll container
+
+  const inquiryData = {
+    email: email || 'no-reply@example.com',
+    message: message || 'No message provided.',
+    name: selectedContact?.name || 'Unknown Contact',
+    productImage: selectedImage || '',
+    productTitle: title || 'No title',
+    productDescription: description || 'No description',
+    contactEmail: selectedContact?.email || 'default@email.com'
+}
+    try {
+      
+      const result = await emailjs.send(
+        'service_8ewi67a',  // Replace with your EmailJS service ID
+        'template_f74bqv8', // Replace with your EmailJS template ID
+        inquiryData,
+        'OTX03JFSc4Qad2G2Q'     // Replace with your EmailJS user ID
+      );
+      
+      alert('Inquiry sent successfully!');
+    } catch (error) {
+      console.error('Error sending email:', error);  // Check the error message in the console
+      alert('Failed to send inquiry.');
+    }
+  }
+
+  const contact = [
+    { name: 'Name', email: 'hanna@example.com' },
+    { name: 'B', email: 'aljun@gmail.com' },
+    { name: 'Burnbox', email: 'nanoxzorox040703@gmail.com' },
+   
+  ];
+
+  
   const scrollRef = useRef<HTMLDivElement>(null);
   let isDown = false;
   let startX: number;
   let scrollLeft: number;
+
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!scrollRef.current) return;
@@ -45,7 +96,15 @@ const ServiceDetail: React.FC<Props> = ({ image, title, description, features })
     const walk = (x - startX) * 2; // scroll-fastness factor
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
-
+  const handleContactSelect = (contact: Contact) => {
+    setSelectedContact(contact)
+  }
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <div className="w-full max-w-5xl bg-gradient-to-tr from-neutral-500 via-neutral-300 to-neutral-300 p-8 rounded">
       <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
@@ -57,19 +116,19 @@ const ServiceDetail: React.FC<Props> = ({ image, title, description, features })
             className="max-w-full h-auto object-contain"
           />
         </div>
-
         {/* Right: Content */}
         <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
           <h2 className="text-3xl md:text-4xl font-bold">{title}</h2>
           <p className="text-gray-700 text-sm">{description}</p>
-
           <p className="text-pink-600 font-medium text-sm">Key Features</p>
           <ul className="text-left text-sm list-disc pl-5 text-gray-600">
             {features.map((feature, index) => (
               <li key={index}>{feature}</li>
             ))}
           </ul>
-          <button className="mt-4 px-6 py-2 bg-pink-500 text-white rounded-2xl hover:bg-transparent hover:text-black hover:border border-pink-500">
+          <button 
+          onClick={openModal}
+          className="mt-4 px-6 py-2 bg-pink-500 text-white rounded-2xl hover:bg-transparent hover:text-black hover:border border-pink-500">
             Inquire Now
           </button>
         </div>
@@ -92,8 +151,106 @@ const ServiceDetail: React.FC<Props> = ({ image, title, description, features })
           <img src="/BOOK.png" onClick={() => handleImageClick("/BOOK.png")} className="w-40 h-auto object-contain rounded shadow cursor-pointer" />
         </div>
       </div>
+      {/* Modal for "Inquire Now" */}
+
+{isModalOpen && (
+  <div onClick={closeModal} className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+    <div onClick={(e) => e.stopPropagation()} className="bg-[#1a1a1a] text-white p-6 md:p-8 rounded-lg w-11/12 max-w-4xl flex flex-col md:flex-row gap-8">
+      
+      {/* Left: Product Details */}
+      <div className="w-full md:w-1/2 border-pink  p-4 rounded-md bg-[#262626]">
+        <div className="w-full flex justify-center">
+          <img
+            src={selectedImage}
+            alt={title}
+            className="max-w-xs h-auto object-contain"
+          />
+        </div>
+        <h2 className="mt-4 text-xl text-center font-bold">{title}</h2>
+        <p className="text-sm text-center text-gray-400 mt-2">{description}</p>
+        <p className="text-pink-400 font-medium text-sm text-center mt-4">Key Features</p>
+        <ul className="text-left text-sm list-disc pl-5 text-gray-300 mt-2">
+          {features.map((feature, index) => (
+            <li key={index}>{feature}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Right: Contact Form */}
+      <div className="w-full md:w-1/2 flex flex-col justify-between">
+        <h3 className="text-center font-semibold text-gray-200 mb-4">Fill Out  this form</h3>
+
+        <div className="space-y-6">
+
+          <div>
+            <label className="text-sm text-gray-400">Name</label>
+            <input
+              type="text"
+              className="w-full p-2 rounded-md bg-[#333] border border-gray-600 text-white"
+              placeholder="Enter your name"
+              value={contactName}
+             onChange={(e) => setContactName(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="text-sm text-gray-400">contact</label>
+            <input
+              type="text"
+              className="w-full p-2 rounded-md bg-[#333] border border-gray-600 text-white"
+              placeholder="Contact person"
+              value={contactPhone}
+              onChange={(e) => setContactPhone(e.target.value)}
+            />
+          </div>
+          <div>
+            <label className="text-sm text-gray-400">Email</label>
+            <input
+              type="email"
+              className="w-full p-2 rounded-md bg-[#333] border border-gray-600 text-white"
+              placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+          {/* Arrow Button */}
+          <div className="flex justify-end mt-2">
+            <button
+              onClick={handleSubmitInquiry}
+              className="bg-pink-500 hover:bg-pink-600 text-white text-xl px-4 py-2 rounded-full"
+            >
+              <FaArrowCircleRight/>
+            </button>
+          </div>
+        </div>
+        {/* Other ways to contact */}
+        <div className="mt-2 text-center text-sm text-gray-400">other ways to contact</div>
+       <div className="flex justify-between text-xs text-gray-500 mt-4 px-2 md:px-4">
+        <div className="space-y-2 text-left">
+          <p>+63 917 700 8364</p>
+          <p className="flex items-center gap-1">
+            <a href="https://facebook.com/burnboxprinting" className="flex items-center gap-1">
+               <FaFacebook />burnboxprinting
+            </a>
+          </p>
+        </div>
+        <div className="space-y-2 text-right">
+          <p>+63 977 247 3179</p>
+          <p><a href="https://burnboxprinting.com">burnboxprinting.com</a></p>
+        </div>
+      </div>
+      </div>
+      {/* Close Button (top-right) */}
+      <button
+        onClick={closeModal}
+        className="absolute top-4 right-4 text-white font-bold text-xl"
+      >
+      </button>
     </div>
-  );
+  </div>
+)}
+
+    </div>
+  ) ;
 };
 
 export default ServiceDetail;

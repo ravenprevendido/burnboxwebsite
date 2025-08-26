@@ -24,12 +24,10 @@ const StoreDetail: React.FC<StoreDetailProps> = ({ onDirectionClick }) => {
             </span>
             </p>
         </div>
-
         <div className='flex items-start gap-2'>
             <FaCalendar className='mt-1 text-pink-500'/>
             <p>Mon - Fri, 8:00 am - 10:00PM</p>
         </div>
-
         <div>
             <p>
                 Mobile: <a href="tel: +639177008364">+63 917 700 8364</a>

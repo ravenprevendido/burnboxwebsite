@@ -13,6 +13,8 @@ const cards = [
     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium recusandae, vero vel molestias voluptatem nam et reprehenderit. Vero repellat ipsa voluptatum maxime commodi.',
     features: ['High-quality paper', 'Custom designs', 'Quick turnaround']
   },
+
+
   {
     id: '2',
     title: 'BurnBox',
@@ -21,6 +23,8 @@ const cards = [
     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium recusandae, vero vel molestias voluptatem nam et reprehenderit. Vero repellat ipsa voluptatum maxime commodi.',
     features: ['Bold designs', 'Brand-focused', 'Customizable options']
   },
+
+
   {
     id: '3',
     title: 'A4 Paper',
@@ -29,6 +33,8 @@ const cards = [
     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium recusandae, vero vel molestias voluptatem nam et reprehenderit. Vero repellat ipsa voluptatum maxime commodi.',
     features: ['Bold designs', 'Brand-focused', 'Customizable options']
   },
+
+
   {
     id: '4',
     title: 'BurnBox',
@@ -37,6 +43,8 @@ const cards = [
     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium recusandae, vero vel molestias voluptatem nam et reprehenderit. Vero repellat ipsa voluptatum maxime commodi.',
     features: ['Bold designs', 'Brand-focused', 'Customizable options']
   },
+
+
   {
     id: '5',
     title: 'Sample Image 5',
@@ -45,6 +53,7 @@ const cards = [
     description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Praesentium recusandae, vero vel molestias voluptatem nam et reprehenderit. Vero repellat ipsa voluptatum maxime commodi.',
     features: ['Bold designs', 'Brand-focused', 'Customizable options']
   },
+  
   {
     id: '6',
     title: 'Sample Image 6',
@@ -105,6 +114,11 @@ const ServicesDisplay = () => {
     setSelectedDescription(null)
     setSelectedFeatures(null)
   }
+
+
+
+
+
   return (
     <section id='gallery' className="min-h-screen w-full bg-white px-4 py-20 flex flex-col items-center">
       <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-center text-pink mb-12">Galle<span className='text-black'>ry</span></h1>

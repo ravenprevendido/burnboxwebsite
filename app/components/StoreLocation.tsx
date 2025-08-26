@@ -49,13 +49,11 @@ export default function StoreLocation({ target }: StoreLocationProps) {
       });
     }
   }, []);
-
   useEffect(() => {
     if (target && mapRef.current) {
       mapRef.current.flyTo(target, 17, { duration: 1.5 });
     }
   }, [target]);
-
   // Don't render the map until leaflet and icon are ready
   if (!L || !DefaultIcon) return null;
 
@@ -89,3 +87,8 @@ export default function StoreLocation({ target }: StoreLocationProps) {
 function handleWheel(this: HTMLElement, ev: WheelEvent) {
   throw new Error("Function not implemented.");
 }
+
+
+
+
+
