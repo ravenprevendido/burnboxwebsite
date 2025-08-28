@@ -3,9 +3,6 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaCalendar } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 
-// interface StoreDetailProps {
-//     onDirectionClick?: () => void;
-// }
 const StoreDetail = () => {
 
   return (
