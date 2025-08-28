@@ -8,7 +8,8 @@ import { FaPhoneAlt } from "react-icons/fa";
 // }
 const StoreDetail = () => {
 
-    
+
+
   return (
     <div className='text-white space-y-4 text-sm font-light'>
         <div>
@@ -32,7 +33,6 @@ const StoreDetail = () => {
                 Tel: <a href="tel:+63270072416" >(02) 7007 2416</a>
             </p>
         </div>
-
         <div>
             <p>Online Shop - Business Hours: 24/7</p>
             <p>
@@ -56,4 +56,7 @@ const StoreDetail = () => {
   )
 }
 
+
+
 export default StoreDetail
+
