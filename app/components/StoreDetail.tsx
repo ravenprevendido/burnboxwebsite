@@ -5,7 +5,7 @@ import { FaPhoneAlt } from "react-icons/fa";
 
 
 interface StoreDetailProps {
-    onDirectionClick: () => void;
+    onDirectionClick?: () => void;
 }
 
 const StoreDetail: React.FC<StoreDetailProps> = ({ onDirectionClick }) => {
@@ -44,6 +44,7 @@ const StoreDetail: React.FC<StoreDetailProps> = ({ onDirectionClick }) => {
                 </a>
             </p>
         </div>
+    
 
         <div className='flex gap-3 mt-4'>
             <button className='bg-gray-800 px-4 py-2 rounded flex items-center gap-2'>
