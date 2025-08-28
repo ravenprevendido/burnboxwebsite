@@ -4,9 +4,7 @@ import StoreDetail from './StoreDetail'
 
 const Maps = () => {
 
-  const handleDirectionClick = () => {
-    console.log('Direction clicked!')
-  }
+
 
   return (
     <div className='min-h-[100vh] min-w-[100vw] z-0 relative pt-20 bg-white'>
