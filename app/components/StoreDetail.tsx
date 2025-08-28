@@ -8,8 +8,6 @@ import { FaPhoneAlt } from "react-icons/fa";
 // }
 const StoreDetail = () => {
 
-
-
   return (
     <div className='text-white space-y-4 text-sm font-light'>
         <div>
@@ -59,4 +57,13 @@ const StoreDetail = () => {
 
 
 export default StoreDetail
+
+
+
+
+
+
+
+
+
 
