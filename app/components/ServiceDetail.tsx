@@ -26,7 +26,7 @@ const ServiceDetail: React.FC<Props> = ({ image, title, description, features })
   const [contactName, setContactName] = useState('');
   const [contactPhone, setContactPhone] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedContact, setSelectedContact] = useState<Contact | null>(null)
+ 
   const handleImageClick = (newImage: string) => {
     setSelectedImage(newImage);
   };
@@ -66,9 +66,7 @@ const ServiceDetail: React.FC<Props> = ({ image, title, description, features })
     const walk = (x - startX) * 2; // scroll-fastness factor
     scrollRef.current.scrollLeft = scrollLeft - walk;
   };
-  const handleContactSelect = (contact: Contact) => {
-    setSelectedContact(contact)
-  }
+ 
   const openModal = () => {
     setIsModalOpen(true);
   };
