@@ -84,11 +84,9 @@ export default function StoreLocation({ target }: StoreLocationProps) {
   );
 }
 
+
+
 function handleWheel(this: HTMLElement, ev: WheelEvent) {
   throw new Error("Function not implemented.");
 }
-
-
-
-
 

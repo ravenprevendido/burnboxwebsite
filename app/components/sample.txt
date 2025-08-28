@@ -1,17 +1,59 @@
-<div className="flex justify-between text-xs text-gray-400 mt-4 px-2 md:px-4">
-  {/* Left Contact Info */}
-  <div className="space-y-2">
-    <p>+63 917 700 8364</p>
-    <p className="flex items-center gap-1">
-      <a href="https://www.facebook.com/burnboxprinting" target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 hover:text-pink-500">
-        burnboxprinting <FaFacebook />
-      </a>
-    </p>
+<div className="w-full max-w-5xl mx-auto bg-gradient-to-tr from-neutral-500 via-neutral-300 to-neutral-300 p-4 sm:p-6 md:p-10 rounded">
+  <div className="flex flex-col md:flex-row items-center md:items-start gap-8">
+    
+    {/* Left: Image */}
+    <div className="w-full md:w-1/2 flex justify-center">
+      <img
+        src={selectedImage}
+        alt={title}
+        className="w-[70%] sm:w-[60%] md:w-full h-auto object-contain"
+      />
+    </div>
+
+    {/* Right: Content */}
+    <div className="w-full md:w-1/2 text-center md:text-left space-y-4">
+
+      {/* Title */}
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">{title}</h2>
+
+      {/* Description */}
+      <div className="bg-white/60 text-sm text-gray-800 p-4 rounded-md shadow-sm mx-auto md:mx-0 w-[90%] sm:w-[85%] md:w-full">
+        {description}
+      </div>
+
+      {/* Key Features */}
+      <div>
+        <p className="text-pink-600 font-semibold text-sm mb-2">Key Features</p>
+        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-sm text-gray-700 list-disc list-inside text-left px-4 sm:px-0">
+          {features.map((feature, index) => (
+            <li key={index}>{feature}</li>
+          ))}
+        </ul>
+      </div>
+
+      {/* CTA Button */}
+      <div className="flex justify-center md:justify-start">
+        <button 
+          onClick={openModal}
+          className="mt-4 px-6 py-2 bg-pink-500 text-white rounded-2xl hover:bg-transparent hover:text-black hover:border border-pink-500 transition"
+        >
+          Inquire Now
+        </button>
+      </div>
+    </div>
   </div>
 
-  {/* Right Contact Info */}
-  <div className="space-y-2 text-right">
-    <p>+63 977 247 3179</p>
-    <p>&nbsp;</p> {/* Optional: Keeps spacing aligned */}
+  {/* Gallery / Carousel */}
+  <div className="mt-10">
+    <div className="flex overflow-x-auto gap-4 px-2 md:px-0">
+      {galleryImages.map((img, idx) => (
+        <img
+          key={idx}
+          src={img}
+          alt={`gallery-${idx}`}
+          className="w-32 h-32 object-contain shrink-0 rounded-md shadow-md"
+        />
+      ))}
+    </div>
   </div>
 </div>

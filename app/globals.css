@@ -45,6 +45,13 @@ button {
 }
 
 
+html,
+body {
+  overflow-x: hidden;
+}
+
+
+
 .bg-gradient-radial-pink {
   background-color: black;
   background: radial-gradient(at center, #ff0060 5%, transparent 65%);

@@ -11,6 +11,7 @@ import {
 import { HiChevronDown } from 'react-icons/hi2'
 import { RiMenu4Line } from "react-icons/ri";
 import ToolTip from './ToolTip'
+import { animate } from 'framer-motion';
 
 const Header = () => {
   const [isSearchActive, setIsSearchActive] = useState(false);
@@ -22,7 +23,7 @@ const Header = () => {
     'PCV ID/Lanyard',
     'Photo canvas',
     'Wall Mural',
-    'gallery',
+    'Gallery',
     'burnbox',
     'home'
   ]);
@@ -84,7 +85,8 @@ const handleMobileNavClick = (id: string) => {
         <a href="#home"><button
           type="button"
           className='px-5 h-full hover:text-pink transition ease-in duration-200'
-        >Home</button></a>
+        >Home</button>
+        </a>
         <a href="#services"><button
           type="button"
           className='px-5 h-full flex gap-2 items-center hover:text-pink transition ease-in duration-200'
@@ -96,7 +98,7 @@ const handleMobileNavClick = (id: string) => {
           <a href="#gallery" ><button
             type="button"
             className='pl-5 pr-3 h-full flex gap-2 items-center  hover:text-pink transition ease-in duration-200'
-            onClick={() => setToolTip(!showToolTip)}
+            onClick={() => {setToolTip(!showToolTip)}}
           >
             Gallery
             <HiChevronDown />
@@ -173,6 +175,7 @@ const handleMobileNavClick = (id: string) => {
     {['Home', 'Services', 'About'].map((item, index) => (
       <button
         key={item}
+        onClick={() => handleMobileNavClick(item.toLowerCase())}
         className='block w-full text-left hover:text-pink animate-fadeInUp'
         style={{ animationDelay: `${index * 0.1 + 0.2}s` }}
       >
@@ -219,7 +222,36 @@ const handleMobileNavClick = (id: string) => {
       <div className='p-2 rounded-full bg-pink hover:scale-110 transition'>
       <HiOutlineShoppingCart className='text-xl' />
       </div>
-        <HiOutlineSearch className='text-2xl cursor-pointer hover:text-pink transition' />
+        {isSearchActive ? (
+          <div className='flex items-center gap-2 animate-fadeInUp' style={{animationDelay: '0.8s'}}>
+              <input
+                type='text'
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                placeholder='Search...'
+                className='bg-transparent border border-pink-300 text-white px-4 py-2 rounded-md w-full placeholder:text-gray-500 focus:outline-none'
+              />
+              <button
+                type='button'
+                onClick={() => {
+                  setIsSearchActive(false);
+                  setSearchValue('');
+                }}
+                className='absolute right-2 top-1/2 -translate-y-1/2'
+              >
+                <HiX className='text-pink-500 text-2xl'/>
+              </button>
+          </div>
+        ) : (
+          <button
+            type='button'
+            onClick={() => setIsSearchActive(true)}
+            className='text-2xl cursor-pointer hover:text-pink transition animate-fadeInUp'
+            style={{ animationDelay: '0.8s' }}
+          >
+            <HiOutlineSearch/>
+          </button>
+        )}
     </div>
   </div>
 )}
@@ -227,7 +259,3 @@ const handleMobileNavClick = (id: string) => {
   )
 }
 export default Header
-
-
-
-

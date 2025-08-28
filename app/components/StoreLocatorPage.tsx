@@ -23,7 +23,7 @@ return (
   )
 }
 
-export default StoreLocatorPage
 
+export default StoreLocatorPage
 
 

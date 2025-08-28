@@ -3,6 +3,11 @@
 import React, { useState } from 'react'
 import ImageCard from './ImageCard'
 import ServiceDetail from './ServiceDetail'
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const cards = [
   {
@@ -116,49 +121,61 @@ const ServicesDisplay = () => {
   }
 
 
-
-
-
   return (
     <section id='gallery' className="min-h-screen w-full bg-white px-4 py-20 flex flex-col items-center">
       <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-center text-pink mb-12">Galle<span className='text-black'>ry</span></h1>
-      <div className="md:w-4/5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-1">
-        {cards.map((card) => (
-          <ImageCard
-            key={card.id}
-            frontImg={card.frontImg}
-            hoverImg={card.hoverImg}
-            title={card.title}
-            description={card.description}
-            features={card.features}
-            onClick={handleCardClick} 
-          />
-        ))}
-      </div>
+      <div className="w-full px-4">
+  <Swiper
+    modules={[Navigation, Pagination]}
+    spaceBetween={16}
+    slidesPerView={1.2}
+    breakpoints={{
+      640: { slidesPerView: 2 },
+      768: { slidesPerView: 3 },
+      1024: { slidesPerView: 4 },
+      1280: { slidesPerView: 5 },
+    }}
+    pagination={{ clickable: true }}
+    navigation={false}
+  >
+    {cards.map((card) => (
+      <SwiperSlide key={card.id}>
+        <ImageCard
+          frontImg={card.frontImg}
+          hoverImg={card.hoverImg}
+          title={card.title}
+          description={card.description}
+          features={card.features}
+          onClick={handleCardClick}
+        />
+      </SwiperSlide>
+    ))}
+  </Swiper>
+</div>
+
       {/* Modal */}
-      {selectedImage && (
-        <div className="fixed inset-0 z-50 backdrop-blur-md bg-white/50 bg-opacity-80 flex items-center justify-center">
-          <div className="relative bg-gradient-to-tr from-neutral-500 via-neutral-300 to-neutral-300 p-4 rounded-lg max-w-[90%] max-h-[90%] flex flex-col items-center ">
+     {selectedImage && (
+        <div onClick={closeModal} className="fixed inset-0 z-50 bg-white/90 overflow-auto p-2 sm:p-8 flex items-center justify-center">
+          <div  onClick={(e) => e.stopPropagation()}  className="relative max-w-5xl w-full">
             <button
               onClick={closeModal}
-              className="absolute top-2 right-2 text-black text-2xl font-bold"
+              className="absolute top-2 right-2 z-50 text-black dark:text-white text-3xl font-bold md:text-2xl"
             >
-              &times;
+             
             </button>
-            <ServiceDetail 
+
+            <ServiceDetail
               image={selectedImage}
               title={selectedTitle ?? ''}
               description={selectedDescription ?? ''}
               features={selectedFeatures ?? []}
-            />
+           />
           </div>
         </div>
       )}
+
     </section>
   )
 
 }
 export default ServicesDisplay
-
-
-
