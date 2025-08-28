@@ -1,7 +1,7 @@
 // components/ServiceDetail.tsx
 
 import React, { useState, useRef, use } from 'react';
-import emailjs from 'emailjs-com';
+
 import { FaArrowCircleRight, FaFacebook } from 'react-icons/fa';
 
 
@@ -22,7 +22,7 @@ type Contact = {
 const ServiceDetail: React.FC<Props> = ({ image, title, description, features }) => {
   const [selectedImage, setSelectedImage] = useState(image);
   const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('')
+ 
   const [contactName, setContactName] = useState('');
   const [contactPhone, setContactPhone] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,35 +30,7 @@ const ServiceDetail: React.FC<Props> = ({ image, title, description, features })
   const handleImageClick = (newImage: string) => {
     setSelectedImage(newImage);
   };
-  const handleSubmitInquiry = async () => {
-    if(!selectedContact) return alert('Please select a contact person!');
-
-
-  const inquiryData = {
-    email: email || 'no-reply@example.com',
-    message: message || 'No message provided.',
-    name: selectedContact?.name || 'Unknown Contact',
-    productImage: selectedImage || '',
-    productTitle: title || 'No title',
-    productDescription: description || 'No description',
-    contactEmail: selectedContact?.email || 'default@email.com'
-}
-    try {
-      
-      const result = await emailjs.send(
-        'service_8ewi67a',  // Replace with your EmailJS service ID
-        'template_f74bqv8', // Replace with your EmailJS template ID
-        inquiryData,
-        'OTX03JFSc4Qad2G2Q'     // Replace with your EmailJS user ID
-      );
-      
-      alert('Inquiry sent successfully!');
-    } catch (error) {
-      console.error('Error sending email:', error);  // Check the error message in the console
-      alert('Failed to send inquiry.');
-    }
-  }
-
+  
   const contact = [
     { name: 'Name', email: 'hanna@example.com' },
     { name: 'B', email: 'aljun@gmail.com' },
@@ -66,7 +38,6 @@ const ServiceDetail: React.FC<Props> = ({ image, title, description, features })
    
   ];
 
-  
   const scrollRef = useRef<HTMLDivElement>(null);
   let isDown = false;
   let startX: number;
@@ -225,7 +196,7 @@ const ServiceDetail: React.FC<Props> = ({ image, title, description, features })
           {/* Arrow Button */}
           <div className="flex justify-end mt-2">
             <button
-              onClick={handleSubmitInquiry}
+             
               className="bg-pink-500 hover:bg-pink-600 text-white text-xl px-4 py-2 rounded-full"
             >
               <FaArrowCircleRight/>
