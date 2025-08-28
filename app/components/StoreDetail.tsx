@@ -3,7 +3,13 @@ import { FaLocationDot } from "react-icons/fa6";
 import { FaCalendar } from "react-icons/fa";
 import { FaPhoneAlt } from "react-icons/fa";
 
-const StoreDetail = () => {
+interface StoreDetailProps {
+    onDirectionClick: () => void;
+}
+
+
+
+const StoreDetail: React.FC<StoreDetailProps> = ({ onDirectionClick }) => {
 
   return (
     <div className='text-white space-y-4 text-sm font-light'>
@@ -42,7 +48,7 @@ const StoreDetail = () => {
                 <FaPhoneAlt className='text-pink-500'/>
             </button>
 
-             <button className='text-pink-500 px-4 bg-transparent border  py-2 rounded flex items-center gap-2'>
+             <button onClick={onDirectionClick} className='text-pink-500 px-4 bg-transparent border  py-2 rounded flex items-center gap-2'>
                 <FaLocationDot />
                 <span className='text-white'>Directions</span>
             </button>
